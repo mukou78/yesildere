@@ -1,0 +1,189 @@
+# Yeşildere Belediyesi Web Sitesi - Geliştirme Kuralları
+
+## 1. Proje Yapısı
+```
+yesildere/
+├── admin/                 # Admin panel dosyaları
+│   ├── controllers/      # Admin kontrolcüleri
+│   ├── views/           # Admin görünümleri
+│   └── assets/          # Admin panel özel dosyaları
+├── api/                  # API dosyaları
+│   ├── v1/             # API version 1
+│   │   ├── controllers/  # API kontrolcüleri
+│   │   ├── models/      # API modelleri
+│   │   ├── routes/      # API rotaları
+│   │   ├── middleware/  # API middleware'leri
+│   │   └── helpers/     # API yardımcı fonksiyonları
+│   └── docs/           # API dokümantasyonu
+├── assets/              # Statik dosyalar
+│   ├── css/           # CSS dosyaları
+│   │   ├── main.css
+│   │   ├── components/
+│   │   └── pages/
+│   ├── js/            # JavaScript dosyaları
+│   │   ├── main.js
+│   │   ├── components/
+│   │   └── pages/
+│   ├── img/           # Görsel dosyaları
+│   │   ├── logo/
+│   │   ├── icons/
+│   │   └── photos/
+│   └── uploads/       # Yüklenen dosyalar
+├── includes/            # PHP include dosyaları
+│   ├── config/        # Yapılandırma dosyaları
+│   ├── core/          # Çekirdek sınıflar
+│   └── helpers/       # Yardımcı fonksiyonlar
+└── templates/          # Şablon dosyaları
+    ├── layouts/       # Ana şablonlar
+    ├── components/    # Yeniden kullanılabilir parçalar
+    └── pages/         # Sayfa şablonları
+```
+
+## 2. Dosya İsimlendirme Kuralları
+- Tüm dosya isimleri küçük harflerle yazılacak
+- Kelimeler tire (-) ile ayrılacak
+- PHP dosyaları: `sayfa-adi.php`
+- CSS dosyaları: `modul-adi.css`
+- JS dosyaları: `modul-adi.js`
+
+## 3. Kodlama Standartları
+
+### 3.1 PHP
+```php
+// Sınıf isimleri PascalCase
+class UserController {
+    // Metot isimleri camelCase
+    public function getUserData() {
+        // Değişken isimleri camelCase
+        $userData = [];
+    }
+}
+```
+
+### 3.2 JavaScript
+```javascript
+// Fonksiyon isimleri camelCase
+function handleSubmit() {
+    // Değişken isimleri camelCase
+    const formData = new FormData();
+}
+
+// Class isimleri PascalCase
+class SettingsManager {
+    constructor() {
+        this.settings = {};
+    }
+}
+```
+
+### 3.3 CSS
+```css
+/* BEM metodolojisi kullanılacak */
+.block__element--modifier {
+    property: value;
+}
+
+/* CSS değişkenleri */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+}
+```
+
+## 4. API Standartları
+
+### 4.1 Endpoint Yapısı
+```
+/api/v1/{resource}/{id?}
+```
+
+### 4.2 HTTP Metodları
+- GET: Veri okuma
+- POST: Yeni veri oluşturma
+- PUT: Veri güncelleme
+- DELETE: Veri silme
+
+### 4.3 Response Format
+```json
+{
+    "status": true|false,
+    "data": {},
+    "message": "İşlem mesajı",
+    "errors": []
+}
+```
+
+## 5. Veritabanı Kuralları
+- Tablo isimleri çoğul ve küçük harf
+- Birincil anahtarlar 'id' olarak isimlendirilecek
+- Yabancı anahtarlar 'table_name_id' formatında olacak
+- Tarih alanları için 'created_at', 'updated_at' kullanılacak
+- Tüm tablolarda soft delete için 'deleted_at' alanı olacak
+
+## 6. Güvenlik Kuralları
+- Tüm form verileri validate edilecek
+- PDO prepared statements kullanılacak
+- XSS koruması için htmlspecialchars() kullanılacak
+- CSRF token kontrolü yapılacak
+- API istekleri için JWT kullanılacak
+- Dosya yüklemeleri için güvenlik kontrolleri yapılacak
+
+## 7. Frontend Kuralları
+
+### 7.1 Responsive Tasarım
+```css
+/* Bootstrap breakpoints */
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px
+);
+```
+
+### 7.2 JavaScript Modülleri
+- Her özellik için ayrı modül
+- ES6+ syntax kullanımı
+- Event delegation pattern
+- Async/await kullanımı
+- Error handling
+
+## 8. Git Commit Kuralları
+```
+feat: yeni özellik
+fix: hata düzeltmesi
+docs: dokümantasyon
+style: kod formatı
+refactor: kod yenileme
+test: test ekleme/düzenleme
+```
+
+## 9. Performans Kuralları
+- Resimler optimize edilecek (WebP formatı)
+- JavaScript dosyaları sayfa sonunda yüklenecek
+- CSS dosyaları header'da yüklenecek
+- Gereksiz HTTP istekleri minimize edilecek
+- Redis cache kullanılacak
+- API rate limiting uygulanacak
+
+## 10. SEO Kuralları
+- Semantic HTML kullanılacak
+- Her sayfa için unique title ve description
+- Alt etiketleri eklenecek
+- URL yapısı: `/kategori/alt-kategori/sayfa-adi`
+- Sitemap.xml otomatik güncellenecek
+- Robots.txt düzenli kontrol edilecek
+
+## 11. Deployment Kontrol Listesi
+- [ ] Tüm formlar test edildi
+- [ ] Responsive kontrolleri yapıldı
+- [ ] SEO meta etiketleri kontrol edildi
+- [ ] Güvenlik testleri yapıldı
+- [ ] Performans optimizasyonu yapıldı
+- [ ] Tarayıcı uyumluluk testleri yapıldı
+- [ ] API endpoint'leri test edildi
+- [ ] Veritabanı yedeklendi
+- [ ] SSL sertifikası kontrol edildi
+- [ ] Cache temizlendi 
